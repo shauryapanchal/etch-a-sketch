@@ -2,13 +2,14 @@ const settingMenu = document.querySelector(".settings");
 const DEFAULT_COLOR ='rgb(0, 0, 0)';
 const DEFAULT_SIZE = 16;
 const DEFAULT_MODE='color';
+const colorInput=document.querySelector("input");
 let color=DEFAULT_COLOR;
 let size=DEFAULT_SIZE;
 let mode=DEFAULT_MODE;
 settingMenu.addEventListener('click',(event)=>{
     if(event.target.tagName ==='INPUT'){
         event.target.addEventListener("change", ()=>{
-            setColor();
+            color=event.target.value;
         });
     }
     else{
@@ -27,6 +28,7 @@ function setParameters(buttonName){
             break;
         case "Color":
             mode='color';
+            color=colorInput.value;
             break;
         case "Rainbow":
             mode='rainbow';
@@ -43,12 +45,10 @@ function setParameters(buttonName){
 function gridSizeInput(){
     clear();
     size=+prompt("Enter the grid size: (should be less than 100)");
+    while(isNaN(size)||size<=0 || size>100){
+        size=+prompt("Enter the grid size: (should be less than 100)");
+    }
     gridDraw();
-}
-
-function setColor(){
-    const colorInput=document.querySelector("input");
-    color=colorInput.value;
 }
 
 function lighten(currentColor){
@@ -108,15 +108,21 @@ function darken(currentColor){
 }
 
 function renderLogic(){
+    const sketchPad=document.querySelector(".sketch-pad");
     const colBoxes=document.querySelectorAll(".columns");
     let isDrawing=false;
+    sketchPad.addEventListener('mousedown', ()=>{
+        isDrawing=true;
+    })
+    sketchPad.addEventListener('mouseup', ()=>{
+        isDrawing=false;
+    })
     colBoxes.forEach(element => {
-        element.addEventListener('mousedown', (e)=>{
-            e.preventDefault();
+        element.addEventListener('mousedown', ()=>{
             isDrawing=true;
-        })
-        element.addEventListener('mouseup', ()=>{
-            isDrawing=false;
+        });
+        element.addEventListener('mousedown', ()=>{
+            isDrawing=true;
         })
         element.addEventListener('mouseenter', ()=>{
             if(isDrawing){
