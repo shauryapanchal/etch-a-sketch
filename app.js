@@ -52,13 +52,9 @@ function gridSizeInput(){
 }
 
 function lighten(currentColor){
-    console.log(currentColor);
     currentColor=currentColor.substring(3);
-    console.log(currentColor);
     currentColor=currentColor.substring(1,currentColor.length-1);
-    console.log(currentColor);
     currentColor=currentColor.split(", ");
-    console.log(currentColor);
     let r=+currentColor[0];
     let g=+currentColor[1];
     let b=+currentColor[2];
@@ -80,13 +76,9 @@ function lighten(currentColor){
 }
 
 function darken(currentColor){
-    console.log(currentColor);
     currentColor=currentColor.substring(3);
-    console.log(currentColor);
     currentColor=currentColor.substring(1,currentColor.length-1);
-    console.log(currentColor);
     currentColor=currentColor.split(", ");
-    console.log(currentColor);
     let r=+currentColor[0];
     let g=+currentColor[1];
     let b=+currentColor[2];
@@ -111,7 +103,8 @@ function renderLogic(){
     const sketchPad=document.querySelector(".sketch-pad");
     const colBoxes=document.querySelectorAll(".columns");
     let isDrawing=false;
-    sketchPad.addEventListener('mousedown', ()=>{
+    sketchPad.addEventListener('mousedown', (e)=>{
+        e.preventDefault();
         isDrawing=true;
     })
     sketchPad.addEventListener('mouseup', ()=>{
