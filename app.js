@@ -10,6 +10,7 @@ settingMenu.addEventListener('click',(event)=>{
     if(event.target.tagName ==='INPUT'){
         event.target.addEventListener("change", ()=>{
             color=event.target.value;
+            mode='color'
         });
     }
     else{
@@ -22,6 +23,7 @@ function setParameters(buttonName){
         case "Reset":
             clear();
             gridDraw();
+            mode=DEFAULT_MODE;
             break;
         case "Grid Size":
             gridSizeInput();
